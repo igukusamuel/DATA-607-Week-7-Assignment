@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<My_Books>
+
+<Book id="1">
+
+<BookTitle>Options, Futures, and Other Derivatives</BookTitle>
+
+<AuthorsAuthors> Main_Author="John C. Hull" <Authors/>
+
+<Edition>10th Edition</Edition>
+
+<Year>2018</Year>
+
+</Book>
+
+<Book id="2">
+
+<BookTitle>Fixed Income Securities</BookTitle>
+
+<Authors> Main_Author="Bruce Tuckman" Co-Author="Angel Serrat" <Authors/>
+
+<Edition>3rd Edition</Edition>
+
+<Year>2012</Year>
+
+</Book>
+
+<Book id="3">
+
+<BookTitle>Doing Bayesian Data Analysis</BookTitle>
+
+<Authors> Main_Author="John K. Kruschke" <Authors/>
+
+<Edition>2nd Edition</Edition>
+
+<Year>2015</Year>
+
+</Book>
+
+</My_Books>
