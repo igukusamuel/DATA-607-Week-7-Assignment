@@ -2,44 +2,50 @@
 title: "DATA 607 Assignment Week 7"
 author: "Samuel I Kigamba"
 date: "October 13, 2019"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 ## R Markdown
 
-Assignment – Working with XML and JSON in R
+Assignment Working with XML and JSON in R
 
 Pick three of your favorite books on one of your favorite subjects. At least one of the books should have more
 than one author. For each book, include the title, authors, and two or three other attributes that you find
 interesting.
-Take the information that you’ve selected about these three books, and separately create three files which
-store the book’s information in HTML (using an html table), XML, and JSON formats (e.g. “books.html”,
-“books.xml”, and “books.json”). To help you better understand the different file structures, I’d prefer that you
-create each of these files “by hand” unless you’re already very comfortable with the file formats.
+Take the information that youve selected about these three books, and separately create three files which
+store the books information in HTML (using an html table), XML, and JSON formats (e.g. books.html,
+books.xml, and books.json). To help you better understand the different file structures, Id prefer that you
+create each of these files by hand unless youre already very comfortable with the file formats.
 Write R code, using your packages of choice, to load the information from each of the three sources into
 separate R data frames. Are the three data frames identical?
 Your deliverable is the three source files and the R code. If you can, package your assignment solution up into
 an .Rmd file and publish to rpubs.com. [This will also require finding a way to make your three text files
 accessible from the web].
 
-```{r}
-install.packages('RCurl')
-install.packages('rjson')
-install.packages('XML')
-install.packages('selectr')
-install.packages('ROAuth')
-install.packages('httr')
-install.packages('rvest')
-install.packages('stringr')
-install.packages('JSONIO')
-install.packages('jsonlite')
+#Install required packages
+####Make sure to install all the required packages, I have commented them out since they are already installed in my case.
+
+```{r, message=FALSE, warning=FALSE}
+#install.packages('RCurl')
+#install.packages('rjson')
+#install.packages('XML')
+#install.packages('selectr')
+#install.packages('ROAuth')
+#install.packages('httr')
+#install.packages('rvest')
+#install.packages('stringr')
+#install.packages('JSONIO')
+#install.packages('jsonlite')
 ```
 
-```{r}
+####Load all the required libraries, set message = FALSE and warning = FALSE inside the R-code to prevent Rmd from printing out the contents of the load library.
+
+```{r, message=FALSE, warning=FALSE}
 library(jsonlite)
 library(knitr)
 library(RJSONIO)
@@ -48,5 +54,91 @@ library(plyr)
 library(dplyr)
 library(XML)
 library(xml2)
-gc()
+#gc() #Clean up the memory
 ```
+--------------------------------------------------------------------------------
+
+
+\clearpage
+
+
+#HTML file parsing
+#### Following the insturction above, i have created a html file and uploaded it to Github for ease of accessibility.
+#### Lets load the file into R and parse through it to create a data frame and display its contents.
+```{r, warning=FALSE}
+#Follow this Github link to view the raw contents of the file.
+books_html <- "https://raw.githubusercontent.com/igukusamuel/DATA-607-Week-7-Assignment/master/MyFavouriteBooks.html"
+
+download.file(books_html, destfile = "~/MyFavouriteBooks.html")
+
+books_html <- file.path("MyFavouriteBooks.html")
+
+#Lets use htmlParse() for parsing the file.
+
+books_html <- htmlParse(books_html)
+
+#We then use readHTMLTable to read through the html file and create a table 
+
+books_html_tbl <- readHTMLTable(books_html, stringAsFactors = FALSE)
+
+dframe.html <- books_html_tbl[[1]] %>% tbl_df()
+
+dframe.html
+```
+
+
+--------------------------------------------------------------------------------
+
+\clearpage
+
+
+#JSON file parsing
+####Following the insturction above, i have created a json file and uploaded it to Github for ease of accessibility.
+
+Use isValidJSON() to check whether the JSON file is valid before parsing to avoid brakages in the process.
+
+```{r, warning=FALSE, message=FALSE}
+isValidJSON("https://raw.githubusercontent.com/igukusamuel/DATA-607-Week-7-Assignment/master/MyFavouriteBooks.json")
+```
+#### Lets load the file into R and parse through it to create a data frame and display its contents.
+
+```{r}
+#Follow this Github link to view the raw contents of the file.
+MyBooks_json <- "https://raw.githubusercontent.com/igukusamuel/DATA-607-Week-7-Assignment/master/MyFavouriteBooks.json"
+
+download.file(MyBooks_json, destfile = "~/MyFavouriteBooks.json")
+MyBooks_json <- file.path("MyFavouriteBooks.json")
+MyBooks_JSON <- fromJSON(content = MyBooks_json)
+
+#Save the data into a data frame
+
+MyBooks_JSON_df = as.data.frame(MyBooks_JSON)
+
+MyBooks_JSON_df
+```
+
+
+
+--------------------------------------------------------------------------------
+
+\clearpage
+
+
+#XML file parsing
+####Following the insturction above, i have created a XML file and uploaded it to Github for ease of accessibility.
+####Lets load the file into R and parse through it to create a data frame and display its contents.
+
+```{r, message=FALSE}
+#Follow this Github link to view the raw contents of the file.
+MyBooks_XML <- "https://raw.githubusercontent.com/igukusamuel/DATA-607-Week-7-Assignment/master/MyFavouriteBooks.xml"
+
+download.file(MyBooks_XML, destfile = "~/MyFavouriteBooks.xml")
+MyBooks_XML <- file.path("MyFavouriteBooks.xml")
+MyBooks_XML <- xmlParse(MyBooks_XML)
+
+MyBooks_XML <- xmlRoot(MyBooks_XML)
+
+dframe.xml <- xmlToDataFrame(MyBooks_XML, stringsAsFactors = F) %>% tbl_df()
+dframe.xml
+```
+
