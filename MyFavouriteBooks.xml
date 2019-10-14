@@ -6,7 +6,7 @@
 
 <BookTitle>Options, Futures, and Other Derivatives</BookTitle>
 
-<AuthorsAuthors> Main_Author="John C. Hull" <Authors/>
+<Authors> Main_Author="John C. Hull" </Authors>
 
 <Edition>10th Edition</Edition>
 
@@ -18,7 +18,7 @@
 
 <BookTitle>Fixed Income Securities</BookTitle>
 
-<Authors> Main_Author="Bruce Tuckman" Co-Author="Angel Serrat" <Authors/>
+<Authors> Main_Author="Bruce Tuckman" Co-Author="Angel Serrat" </Authors>
 
 <Edition>3rd Edition</Edition>
 
@@ -30,7 +30,7 @@
 
 <BookTitle>Doing Bayesian Data Analysis</BookTitle>
 
-<Authors> Main_Author="John K. Kruschke" <Authors/>
+<Authors> Main_Author="John K. Kruschke" </Authors>
 
 <Edition>2nd Edition</Edition>
 
